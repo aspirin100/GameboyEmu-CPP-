@@ -21,3 +21,11 @@ opengl32       # OpenGL
 user32 gdi32   # стандартные Win32
 shell32
 )
+
+set(SDL3_DLL "${CMAKE_SOURCE_DIR}/bin/SDL3.dll")
+
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${SDL3_DLL}"
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>
+)
