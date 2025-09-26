@@ -11,8 +11,6 @@ public:
 	static GB* CreateInstance(const std::string&);
 	static GB* GetSingleton();
 
-
-
 	void StartEmulation();
 	void RenderGame();
 
@@ -25,7 +23,9 @@ private:
 	Emulator* m_Emulator = nullptr;
 	static GB* m_Instance;
 	
-	
+	SDL_Window* m_Window;
+	SDL_GLContext m_GLContext;
+
 	void HandleInput(SDL_Event& event);
 	bool InitGL();
 };

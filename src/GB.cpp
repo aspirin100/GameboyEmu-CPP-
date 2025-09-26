@@ -1,4 +1,5 @@
 #include"GB.h"
+#include <iostream>
 
 const int windowWidth = 160;
 const int windowHeight = 144;
@@ -19,7 +20,10 @@ GB::GB(const std::string& path) :
 
 GB::~GB()
 {
-	delete m_Emulator;
+	if (m_GLContext) SDL_GL_DestroyContext(m_GLContext);
+    if (m_Window) SDL_DestroyWindow(m_Window);
+    SDL_Quit();
+    delete m_Emulator;
 }
 
 GB* GB::m_Instance = nullptr;
@@ -56,7 +60,7 @@ void GB::StartEmulation()
 		{
 			HandleInput(event);
 
-			if (event.type == SDL_QUIT)
+			if (event.type == SDL_EVENT_QUIT)
 			{
 				quit = true;
 			}
@@ -77,13 +81,13 @@ void GB::StartEmulation()
 
 void GB::HandleInput(SDL_Event& event)
 {
-	if (event.type == SDL_KEYDOWN)
+	if (event.type == SDL_EVENT_KEY_DOWN)
 	{
 		int key = -1;
-		switch (event.key.keysym.sym)
+		switch (event.key.key)
 		{
-		case SDLK_a: key = 4; break;
-		case SDLK_s: key = 5; break;
+		case SDLK_A: key = 4; break;
+		case SDLK_S: key = 5; break;
 		case SDLK_RETURN: key = 7; break;
 		case SDLK_SPACE: key = 6; break;
 		case SDLK_RIGHT: key = 0; break;
@@ -97,13 +101,13 @@ void GB::HandleInput(SDL_Event& event)
 		}
 	}
 	//If a key was released
-	else if (event.type == SDL_KEYUP)
+	else if (event.type == SDL_EVENT_KEY_UP)
 	{
 		int key = -1;
-		switch (event.key.keysym.sym)
+		switch (event.key.key)
 		{
-		case SDLK_a: key = 4; break;
-		case SDLK_s: key = 5; break;
+		case SDLK_A: key = 4; break;
+		case SDLK_S: key = 5; break;
 		case SDLK_RETURN: key = 7; break;
 		case SDLK_SPACE: key = 6; break;
 		case SDLK_RIGHT: key = 0; break;
@@ -124,20 +128,26 @@ void GB::RenderGame()
 	glLoadIdentity();
 	glRasterPos2i(-1, 1);
 	glPixelZoom(1, -1);
-	glDrawPixels(160, 144, GL_RGB, GL_UNSIGNED_BYTE, m_Emulator->m_ScreenData);
-	SDL_GL_SwapBuffers();
+	glDrawPixels(windowWidth, windowHeight, GL_RGB, GL_UNSIGNED_BYTE, m_Emulator->m_ScreenData);
+	SDL_GL_SwapWindow(m_Window);
 }
 
 bool GB::InitGL()
 {
 
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0)
 	{
 		return false;
 	}
-	if (SDL_SetVideoMode(windowWidth, windowHeight, 8, SDL_OPENGL) == NULL)
-	{
-		return false;
+
+	m_Window = SDL_CreateWindow("OpenGL Test", windowWidth, windowHeight, SDL_WINDOW_OPENGL);
+	if(m_Window == NULL){
+		std::cout << SDL_GetError();
+	}
+				
+	m_GLContext = SDL_GL_CreateContext(m_Window);
+	if(m_Window == NULL){
+		std::cout << SDL_GetError();
 	}
 
 	glViewport(0, 0, windowWidth, windowHeight);
@@ -153,8 +163,6 @@ bool GB::InitGL()
 	glDisable(GL_CULL_FACE);
 	glDisable(GL_DITHER);
 	glDisable(GL_BLEND);
-
-	SDL_WM_SetCaption("OpenGL Test", NULL);
 
 	return true;
 }
