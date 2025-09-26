@@ -84,7 +84,7 @@ void GB::HandleInput(SDL_Event& event)
 	if (event.type == SDL_EVENT_KEY_DOWN)
 	{
 		int key = -1;
-		switch (event.key.key)
+		switch (event.key.scancode)
 		{
 		case SDLK_A: key = 4; break;
 		case SDLK_S: key = 5; break;
@@ -104,7 +104,7 @@ void GB::HandleInput(SDL_Event& event)
 	else if (event.type == SDL_EVENT_KEY_UP)
 	{
 		int key = -1;
-		switch (event.key.key)
+		switch (event.key.scancode)
 		{
 		case SDLK_A: key = 4; break;
 		case SDLK_S: key = 5; break;
@@ -135,19 +135,22 @@ void GB::RenderGame()
 bool GB::InitGL()
 {
 
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
+		std::cout << SDL_GetError();
 		return false;
 	}
 
 	m_Window = SDL_CreateWindow("OpenGL Test", windowWidth, windowHeight, SDL_WINDOW_OPENGL);
-	if(m_Window == NULL){
+	if(!m_Window){
 		std::cout << SDL_GetError();
+		return false;
 	}
 				
 	m_GLContext = SDL_GL_CreateContext(m_Window);
-	if(m_Window == NULL){
+	if(!m_GLContext){
 		std::cout << SDL_GetError();
+		return false;
 	}
 
 	glViewport(0, 0, windowWidth, windowHeight);
