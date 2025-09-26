@@ -86,14 +86,14 @@ void GB::HandleInput(SDL_Event& event)
 		int key = -1;
 		switch (event.key.scancode)
 		{
-		case SDLK_A: key = 4; break;
-		case SDLK_S: key = 5; break;
-		case SDLK_RETURN: key = 7; break;
-		case SDLK_SPACE: key = 6; break;
-		case SDLK_RIGHT: key = 0; break;
-		case SDLK_LEFT: key = 1; break;
-		case SDLK_UP: key = 2; break;
-		case SDLK_DOWN: key = 3; break;
+		case SDL_SCANCODE_A: key = 4; break;
+		case SDL_SCANCODE_S: key = 5; break;
+		case SDL_SCANCODE_RETURN: key = 7; break;
+		case SDL_SCANCODE_SPACE: key = 6; break;
+		case SDL_SCANCODE_RIGHT: key = 0; break;
+		case SDL_SCANCODE_LEFT: key = 1; break;
+		case SDL_SCANCODE_UP: key = 2; break;
+		case SDL_SCANCODE_DOWN: key = 3; break;
 		}
 		if (key != -1)
 		{
@@ -106,14 +106,14 @@ void GB::HandleInput(SDL_Event& event)
 		int key = -1;
 		switch (event.key.scancode)
 		{
-		case SDLK_A: key = 4; break;
-		case SDLK_S: key = 5; break;
-		case SDLK_RETURN: key = 7; break;
-		case SDLK_SPACE: key = 6; break;
-		case SDLK_RIGHT: key = 0; break;
-		case SDLK_LEFT: key = 1; break;
-		case SDLK_UP: key = 2; break;
-		case SDLK_DOWN: key = 3; break;
+		case SDL_SCANCODE_A: key = 4; break;
+		case SDL_SCANCODE_S: key = 5; break;
+		case SDL_SCANCODE_RETURN: key = 7; break;
+		case SDL_SCANCODE_SPACE: key = 6; break;
+		case SDL_SCANCODE_RIGHT: key = 0; break;
+		case SDL_SCANCODE_LEFT: key = 1; break;
+		case SDL_SCANCODE_UP: key = 2; break;
+		case SDL_SCANCODE_DOWN: key = 3; break;
 		}
 		if (key != -1)
 		{
