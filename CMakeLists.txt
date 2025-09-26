@@ -17,8 +17,8 @@ target_link_directories(${PROJECT_NAME} PRIVATE "${CMAKE_SOURCE_DIR}/lib/SDL3")
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
 SDL3 
-opengl32       # OpenGL
-user32 gdi32   # стандартные Win32
+opengl32       
+user32 gdi32   
 shell32
 )
 
