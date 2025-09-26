@@ -1,7 +1,1 @@
-dep.txt
-.vs
-x64
-Release
-Debug
-gboy_emu.vcxproj.filters
-gboy_emu.vcxproj.user
+build/

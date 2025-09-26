@@ -1,5 +1,6 @@
 #include"Emulator.h"
 #include"Config.h"
+#include <cstring>
 
 #define VERTICAL_BLANK_SCAN_LINE 0x90
 #define VERTICAL_BLANK_SCAN_LINE_MAX 0x99

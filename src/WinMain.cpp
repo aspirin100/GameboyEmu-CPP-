@@ -2,12 +2,12 @@
 #include<iostream>
 #include"GB.h"
 
-FILE _iob[] = { *stdin, *stdout, *stderr };
+// FILE _iob[] = { *stdin, *stdout, *stderr };
 
-extern "C" FILE * __cdecl __iob_func(void)
-{
-    return _iob;
-}
+// extern "C" FILE * __cdecl __iob_func(void)
+// {
+//     return _iob;
+// }
 
 
 int main(int argc, char* argv[])
